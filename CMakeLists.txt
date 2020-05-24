@@ -193,9 +193,9 @@ if(BROTLI_PARENT_DIRECTORY)
 endif()
 
 # Build the brotli executable
-add_executable(brotli ${BROTLI_CLI_C})
-target_link_libraries(brotli ${BROTLI_LIBRARIES_STATIC})
-set_target_properties(brotli PROPERTIES EXCLUDE_FROM_ALL ON EXCLUDE_FROM_DEFAULT ON)
+#add_executable(brotli ${BROTLI_CLI_C})
+#target_link_libraries(brotli ${BROTLI_LIBRARIES_STATIC})
+#set_target_properties(brotli PROPERTIES EXCLUDE_FROM_ALL ON EXCLUDE_FROM_DEFAULT ON)
 
 # Installation
 if(NOT BROTLI_BUNDLED_MODE)
