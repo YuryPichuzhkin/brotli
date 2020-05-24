@@ -365,18 +365,10 @@ function(transform_pc_file INPUT_FILE OUTPUT_FILE VERSION)
   file(WRITE ${OUTPUT_FILE} ${TEXT})
 endfunction()
 
-transform_pc_file("scripts/libbrotlicommon.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/libbrotlicommon.pc" "${BROTLI_VERSION}")
-
-transform_pc_file("scripts/libbrotlidec.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/libbrotlidec.pc" "${BROTLI_VERSION}")
-
-transform_pc_file("scripts/libbrotlienc.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/libbrotlienc.pc" "${BROTLI_VERSION}")
+transform_pc_file("scripts/libbrotli.pc.in" "${CMAKE_CURRENT_BINARY_DIR}/libbrotli.pc" "${BROTLI_VERSION}")
 
 if(NOT BROTLI_BUNDLED_MODE)
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libbrotlicommon.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libbrotlidec.pc"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libbrotlienc.pc"
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/libbrotli.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 endif()
 
