@@ -110,11 +110,11 @@ unset(LOG2_RES)
 set(BROTLI_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/c/include")
 mark_as_advanced(BROTLI_INCLUDE_DIRS)
 
-set(BROTLI_LIBRARIES_CORE brotlienc brotlidec brotlicommon brotli)
+set(BROTLI_LIBRARIES_CORE brotli)
 set(BROTLI_LIBRARIES ${BROTLI_LIBRARIES_CORE} ${LIBM_LIBRARY})
 mark_as_advanced(BROTLI_LIBRARIES)
 
-set(BROTLI_LIBRARIES_CORE_STATIC brotlienc-static brotlidec-static brotlicommon-static brotli-static)
+set(BROTLI_LIBRARIES_CORE_STATIC brotli-static)
 set(BROTLI_LIBRARIES_STATIC ${BROTLI_LIBRARIES_CORE_STATIC} ${LIBM_LIBRARY})
 mark_as_advanced(BROTLI_LIBRARIES_STATIC)
 
@@ -137,14 +137,8 @@ endfunction()
 transform_sources_list("scripts/sources.lst" "${CMAKE_CURRENT_BINARY_DIR}/sources.lst.cmake")
 include("${CMAKE_CURRENT_BINARY_DIR}/sources.lst.cmake")
 
-add_library(brotlicommon SHARED ${BROTLI_COMMON_C})
-add_library(brotlidec SHARED ${BROTLI_DEC_C})
-add_library(brotlienc SHARED ${BROTLI_ENC_C})
 add_library(brotli SHARED ${BROTLI_IW_C})
 
-add_library(brotlicommon-static STATIC ${BROTLI_COMMON_C})
-add_library(brotlidec-static STATIC ${BROTLI_DEC_C})
-add_library(brotlienc-static STATIC ${BROTLI_ENC_C})
 add_library(brotli-static STATIC ${BROTLI_IW_C})
 
 # Older CMake versions does not understand INCLUDE_DIRECTORIES property.
@@ -165,7 +159,7 @@ if (BUILD_SHARED_LIBS)
   endforeach()
 endif()
 
-foreach(lib brotlicommon brotlidec brotlienc brotlicommon-static brotlidec-static brotlienc-static brotli-static)
+foreach(lib brotli brotli-static)
   target_link_libraries(${lib} ${LIBM_LIBRARY})
   set_property(TARGET ${lib} APPEND PROPERTY INCLUDE_DIRECTORIES ${BROTLI_INCLUDE_DIRS})
   set_target_properties(${lib} PROPERTIES
@@ -175,11 +169,11 @@ foreach(lib brotlicommon brotlidec brotlienc brotlicommon-static brotlidec-stati
   set_property(TARGET ${lib} APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${BROTLI_INCLUDE_DIRS}")
 endforeach()
 
-target_link_libraries(brotlidec brotlicommon brotli)
-target_link_libraries(brotlienc brotlicommon brotli)
+target_link_libraries(brotli)
+target_link_libraries(brotli)
 
-target_link_libraries(brotlidec-static brotlicommon-static brotli-static)
-target_link_libraries(brotlienc-static brotlicommon-static brotli-static)
+target_link_libraries(brotli-static)
+target_link_libraries(brotli-static)
 
 # For projects stuck on older versions of CMake, this will set the
 # BROTLI_INCLUDE_DIRS and BROTLI_LIBRARIES variables so they still
@@ -191,11 +185,6 @@ if(BROTLI_PARENT_DIRECTORY)
   set(BROTLI_INCLUDE_DIRS "${BROTLI_INCLUDE_DIRS}" PARENT_SCOPE)
   set(BROTLI_LIBRARIES "${BROTLI_LIBRARIES}" PARENT_SCOPE)
 endif()
-
-# Build the brotli executable
-#add_executable(brotli ${BROTLI_CLI_C})
-#target_link_libraries(brotli ${BROTLI_LIBRARIES_STATIC})
-#set_target_properties(brotli PROPERTIES EXCLUDE_FROM_ALL ON EXCLUDE_FROM_DEFAULT ON)
 
 # Installation
 if(NOT BROTLI_BUNDLED_MODE)
