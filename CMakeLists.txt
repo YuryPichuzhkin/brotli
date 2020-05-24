@@ -140,10 +140,12 @@ include("${CMAKE_CURRENT_BINARY_DIR}/sources.lst.cmake")
 add_library(brotlicommon SHARED ${BROTLI_COMMON_C})
 add_library(brotlidec SHARED ${BROTLI_DEC_C})
 add_library(brotlienc SHARED ${BROTLI_ENC_C})
+add_library(brotli SHARED ${BROTLI_IW_C})
 
 add_library(brotlicommon-static STATIC ${BROTLI_COMMON_C})
 add_library(brotlidec-static STATIC ${BROTLI_DEC_C})
 add_library(brotlienc-static STATIC ${BROTLI_ENC_C})
+add_library(brotli-static STATIC ${BROTLI_IW_C})
 
 # Older CMake versions does not understand INCLUDE_DIRECTORIES property.
 include_directories(${BROTLI_INCLUDE_DIRS})
