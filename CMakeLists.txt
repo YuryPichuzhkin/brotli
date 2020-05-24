@@ -144,7 +144,7 @@ add_library(brotli-static STATIC ${BROTLI_IW_C})
 # Older CMake versions does not understand INCLUDE_DIRECTORIES property.
 include_directories(${BROTLI_INCLUDE_DIRS})
 
-foreach(lib brotlicommon brotlidec brotlienc)
+foreach(lib brotli)
   target_compile_definitions(${lib} PUBLIC "BROTLI_SHARED_COMPILATION" )
   string(TOUPPER "${lib}" LIB)
   set_target_properties (${lib} PROPERTIES DEFINE_SYMBOL "${LIB}_SHARED_COMPILATION" )
@@ -154,7 +154,7 @@ foreach(lib brotlicommon brotlidec brotlienc)
 endforeach()
 
 if (BUILD_SHARED_LIBS)
-  foreach(lib brotlienc-static brotlidec-static brotlicommon-static brotli-static)
+  foreach(lib brotli-static)
     set_target_properties(${lib} PROPERTIES EXCLUDE_FROM_ALL ON EXCLUDE_FROM_DEFAULT ON)
   endforeach()
 endif()
